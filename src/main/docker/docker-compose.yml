@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  api:
+    container_name: api
+    build: ./
+    restart: always
+    ports:
+      - '9000:9000'
+    depends_on:
+        - postgresql
+
+  postgresql:
+    container_name: postgresql
+    image: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data/
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=bookManagerDB
+volumes:
+  pgdata:
