@@ -12,7 +12,7 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
-    public BookEntity getBook(final long id){
+    public BookEntity getBookById(final long id){
         return bookRepository.findById(id).get();
     }
 
@@ -20,7 +20,7 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    public void deleteBook(final long id){
+    public void deleteBookById(final long id){
         bookRepository.deleteById(id);
     }
 
@@ -29,7 +29,7 @@ public class BookService {
     }
 
     public BookEntity updateBook(Long id, BookEntity newBookEntity){
-        BookEntity oldBookEntity = getBook(id);
+        BookEntity oldBookEntity = getBookById(id);
 
         oldBookEntity.setTitle(newBookEntity.getTitle());
         oldBookEntity.setAuthor(newBookEntity.getAuthor());

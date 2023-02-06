@@ -1,6 +1,7 @@
 package com.API.BookManager.controller;
 
 import com.API.BookManager.model.BookEntity;
+import com.API.BookManager.service.ReadingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.API.BookManager.service.BookService;
@@ -18,22 +19,22 @@ public class BookController {
     }
 
     @GetMapping(value = "/api/book/{id}")
-    public BookEntity getBook(@PathVariable(value = "id") Long id){
-        return bookService.getBook(id);
+    public BookEntity getBookById(@PathVariable(value = "id") Long id){
+        return bookService.getBookById(id);
     }
 
     @PostMapping(value = "/api/book/save")
-    public BookEntity saveBook(@RequestBody BookEntity bookEntity){
-        return bookService.saveBook(bookEntity);
+    public BookEntity saveBook(@RequestBody BookEntity book){
+        return bookService.saveBook(book);
     }
 
     @PutMapping(value = "/api/book/{id}")
-    public BookEntity updateBook(@PathVariable(value = "id") Long id, @RequestBody BookEntity newBookEntity){
-        return bookService.updateBook(id, newBookEntity);
+    public BookEntity updateBookById(@PathVariable(value = "id") Long id, @RequestBody BookEntity newBook){
+        return bookService.updateBook(id, newBook);
     }
 
     @DeleteMapping(value = "/api/book/{id}")
-    public void deleteBook(@PathVariable(value = "id") long id){
-        bookService.deleteBook(id);
+    public void deleteBookById(@PathVariable(value = "id") long id){
+        bookService.deleteBookById(id);
     }
 }
