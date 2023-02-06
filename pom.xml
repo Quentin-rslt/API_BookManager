@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.API</groupId>
-	<artifactId>BookManager</artifactId>
+	<artifactId>API_BookManager</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>BookManager</name>
+	<name>API_BookManager</name>
 	<description>API for BookManager</description>
 	<properties>
 		<java.version>17</java.version>

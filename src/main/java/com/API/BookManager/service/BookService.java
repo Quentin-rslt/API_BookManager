@@ -1,24 +1,22 @@
 package com.API.BookManager.service;
 
-import lombok.Data;
-import com.API.BookManager.model.Book;
+import com.API.BookManager.model.BookEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.API.BookManager.repository.BookRepository;
 
 import java.util.List;
 
-@Data
 @Service
 public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
-    public Book getBook(final long id){
+    public BookEntity getBook(final long id){
         return bookRepository.findById(id).get();
     }
 
-    public List<Book> getBooks(){
+    public List<BookEntity> getBooks(){
         return bookRepository.findAll();
     }
 
@@ -26,23 +24,21 @@ public class BookService {
         bookRepository.deleteById(id);
     }
 
-    public Book addBook(Book book){
-        return bookRepository.save(book);
+    public BookEntity saveBook(BookEntity bookEntity){
+        return bookRepository.save(bookEntity);
     }
 
-    public Book updateBook(Long id, Book newBook){
-        Book oldBook = getBook(id);
+    public BookEntity updateBook(Long id, BookEntity newBookEntity){
+        BookEntity oldBookEntity = getBook(id);
 
-        oldBook.setTitle(newBook.getTitle());
-        oldBook.setAuthor(newBook.getAuthor());
-        oldBook.setImage(newBook.getImage());
-        oldBook.setNumberOP(newBook.getNumberOP());
-        oldBook.setNoteBabelio((newBook.getNoteBabelio()));
-        oldBook.setReleaseYear(newBook.getReleaseYear());
-        oldBook.setAvReadingTime(newBook.getAvReadingTime());
-        oldBook.setNumberReading(newBook.getNumberReading());
-        oldBook.setSummary(newBook.getSummary());
+        oldBookEntity.setTitle(newBookEntity.getTitle());
+        oldBookEntity.setAuthor(newBookEntity.getAuthor());
+        oldBookEntity.setImage(newBookEntity.getImage());
+        oldBookEntity.setNumberOP(newBookEntity.getNumberOP());
+        oldBookEntity.setNoteBabelio((newBookEntity.getNoteBabelio()));
+        oldBookEntity.setReleaseYear(newBookEntity.getReleaseYear());
+        oldBookEntity.setSummary(newBookEntity.getSummary());
 
-        return bookRepository.save(oldBook);
+        return bookRepository.save(oldBookEntity);
     }
 }

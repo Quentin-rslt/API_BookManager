@@ -1,6 +1,6 @@
 package com.API.BookManager.controller;
 
-import com.API.BookManager.model.Book;
+import com.API.BookManager.model.BookEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.API.BookManager.service.BookService;
@@ -13,23 +13,23 @@ public class BookController {
     private BookService bookService;
 
     @GetMapping(value="/api/book/all")
-    public List<Book> getBooks(){
+    public List<BookEntity> getBooks(){
         return bookService.getBooks();
     }
 
     @GetMapping(value = "/api/book/{id}")
-    public Book getBook(@PathVariable(value = "id") Long id){
+    public BookEntity getBook(@PathVariable(value = "id") Long id){
         return bookService.getBook(id);
     }
 
     @PostMapping(value = "/api/book/save")
-    public Book addBook(@RequestBody Book book){
-        return bookService.addBook(book);
+    public BookEntity saveBook(@RequestBody BookEntity bookEntity){
+        return bookService.saveBook(bookEntity);
     }
 
     @PutMapping(value = "/api/book/{id}")
-    public Book updateBook(@PathVariable(value = "id") Long id, @RequestBody Book newBook){
-        return bookService.updateBook(id, newBook);
+    public BookEntity updateBook(@PathVariable(value = "id") Long id, @RequestBody BookEntity newBookEntity){
+        return bookService.updateBook(id, newBookEntity);
     }
 
     @DeleteMapping(value = "/api/book/{id}")
