@@ -29,14 +29,11 @@ public class TagEntity {
     @JoinTable(name = "tag_book",joinColumns = @JoinColumn(name = "idTag"),inverseJoinColumns = @JoinColumn(name = "idBook"))
     private List<BookEntity> books = new ArrayList<>();
 
-    /****************************** helpers methods ******************************/
-    public void addBook(BookEntity book) {
-        books.add(book);
-        book.getTags().add(this);
+    public TagEntity() {
     }
 
-    public void removeBook(BookEntity book) {
-        books.remove(book);
-        book.getTags().remove(this);
+    public TagEntity(String textTag, int colorTag) {
+        this.textTag = textTag;
+        this.colorTag = colorTag;
     }
 }

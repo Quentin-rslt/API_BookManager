@@ -25,9 +25,6 @@ public class BookEntity {
     @Column(name="author")
     private String author;
 
-    @Column(name="image")
-    private String image;
-
     @Column(name="numberOP")
     private int numberOP;
 
@@ -41,10 +38,23 @@ public class BookEntity {
     private String summary;
 
     @OneToMany(mappedBy = "book",cascade = CascadeType.ALL, orphanRemoval = true)
-    List<ReadingEntity> readings = new ArrayList<>();
+    private List<ReadingEntity> readings = new ArrayList<>();
 
     @ManyToMany(mappedBy = "books")
     private List<TagEntity> tags = new ArrayList<>();
+
+    public BookEntity() {
+    }
+
+    public BookEntity(String title, String author, int numberOP, double notePerso, String releaseYear, String summary) {
+        super();
+        this.title = title;
+        this.author = author;
+        this.numberOP = numberOP;
+        this.notePerso = notePerso;
+        this.releaseYear = releaseYear;
+        this.summary = summary;
+    }
 
     /****************************** helpers methods ******************************/
     public void addReading(ReadingEntity reading) {
@@ -54,5 +64,15 @@ public class BookEntity {
     public void removeReading(ReadingEntity reading) {
         readings.remove(reading);
         reading.setBook(null);
+    }
+
+    public void addTag(TagEntity tag) {
+        tags.add(tag);
+        tag.getBooks().add(this);
+    }
+
+    public void removeTag(TagEntity tag) {
+        tags.remove(tag);
+        tag.getBooks().remove(this);
     }
 }

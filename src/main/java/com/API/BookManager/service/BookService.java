@@ -29,10 +29,49 @@ public class BookService {
 
     public void deleteBooks(){ bookRepository.deleteAll(); }
 
-    public BookEntity saveBook(BookEntity bookEntity, List<ReadingEntity> readings, List<TagEntity> tags){
-        bookEntity.setReadings(readings);
-        bookEntity.setTags(tags);
+    public BookEntity addBook(BookEntity newBook, List<ReadingEntity> readings, List<TagEntity> tags){
+        if(bookRepository.findByTitle(newBook.getTitle()).isPresent() && bookRepository.findByAuthor(newBook.getAuthor()).isPresent()){
+            return null;
+        }
 
-        return bookRepository.save(bookEntity);
+        for(ReadingEntity reading: readings) {
+            newBook.addReading(reading);
+        }
+        for(TagEntity tag : tags){
+            newBook.addTag(tag);
+        }
+
+        return bookRepository.save(newBook);
+    }
+
+    public BookEntity updateBook(Long id, BookEntity newBook, List<ReadingEntity> readings, List<TagEntity> tags){
+        Optional<BookEntity> oldBook = bookRepository.findById(id);
+        if(oldBook.isPresent()){
+            if(bookRepository.findByTitle(newBook.getTitle()).isPresent() && bookRepository.findByAuthor(newBook.getAuthor()).isPresent()){
+                return null;
+            }
+
+            if(newBook.getTitle()!=null){
+                oldBook.get().setTitle(newBook.getTitle());
+            }
+            if(newBook.getAuthor()!=null){
+                oldBook.get().setAuthor(newBook.getAuthor());
+            }
+            oldBook.get().setNumberOP(newBook.getNumberOP());
+            oldBook.get().setNotePerso(newBook.getNotePerso());
+            if(newBook.getReleaseYear()!=null){
+                oldBook.get().setReleaseYear(newBook.getReleaseYear());
+            }
+            if(newBook.getSummary()!=null){
+                oldBook.get().setSummary(newBook.getSummary());
+            }
+            oldBook.get().setReadings(readings);
+            oldBook.get().setTags(tags);
+
+            return bookRepository.save(oldBook.get());
+        }
+        else {
+            return null;
+        }
     }
 }

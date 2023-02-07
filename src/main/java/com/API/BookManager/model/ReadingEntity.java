@@ -29,4 +29,15 @@ public class ReadingEntity {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name="idBook")
     private BookEntity book;
+
+
+    public ReadingEntity() {
+    }
+
+    public ReadingEntity(Date startReadingDate, Date endReadingDate) {
+        super();
+        this.startReadingDate = startReadingDate;
+        this.endReadingDate = endReadingDate;
+    }
+
 }
