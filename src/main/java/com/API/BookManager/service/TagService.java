@@ -6,14 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TagService {
     @Autowired
-    TagRepository tagRepository;
+    private TagRepository tagRepository;
 
-    public TagEntity getTagById(final Long id){
-        return tagRepository.findById(id).get();
+    public Optional<TagEntity> getTagById(final Long id){
+        return tagRepository.findById(id);
     }
 
     public List<TagEntity> getTags(){

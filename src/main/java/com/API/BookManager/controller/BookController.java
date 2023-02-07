@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.API.BookManager.service.BookService;
 
+import java.awt.print.Book;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class BookController {
@@ -20,7 +22,7 @@ public class BookController {
 
     @GetMapping(value = "/api/book/{id}")
     public BookEntity getBookById(@PathVariable(value = "id") Long id){
-        return bookService.getBookById(id);
+        return bookService.getBookById(id).get();
     }
 
     @PostMapping(value = "/api/book/save")
@@ -30,7 +32,34 @@ public class BookController {
 
     @PutMapping(value = "/api/book/{id}")
     public BookEntity updateBookById(@PathVariable(value = "id") Long id, @RequestBody BookEntity newBook){
-        return bookService.updateBook(id, newBook);
+        Optional<BookEntity> oldBook = bookService.getBookById(id);
+        if(oldBook.isPresent()){
+            if(newBook.getTitle()!=null){
+                oldBook.get().setTitle(newBook.getTitle());
+            }
+            if(newBook.getAuthor()!=null){
+                oldBook.get().setAuthor(newBook.getAuthor());
+            }
+            if(newBook.getImage()!=null){
+                oldBook.get().setImage(newBook.getImage());
+            }
+            oldBook.get().setNumberOP(newBook.getNumberOP());
+            oldBook.get().setNotePerso(newBook.getNotePerso());
+            oldBook.get().setNoteBabelio(newBook.getNoteBabelio());
+            if(newBook.getReleaseYear()!=null){
+                oldBook.get().setReleaseYear(newBook.getReleaseYear());
+            }
+            if(newBook.getSummary()!=null){
+                oldBook.get().setSummary(newBook.getSummary());
+            }
+            oldBook.get().setReadings(newBook.getReadings());
+
+            bookService.saveBook(oldBook.get());
+            return oldBook.get();
+        }
+        else {
+            return null;
+        }
     }
 
     @DeleteMapping(value = "/api/book/{id}")

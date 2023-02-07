@@ -6,14 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReadingService {
     @Autowired
-    ReadingRepository readingRepository;
+    private ReadingRepository readingRepository;
 
-    public ReadingEntity getReadingById(final Long id){
-        return readingRepository.findById(id).get();
+    public Optional<ReadingEntity> getReadingById(final Long id){
+        return readingRepository.findById(id);
     }
 
     public List<ReadingEntity> getReadings(){
@@ -23,6 +24,8 @@ public class ReadingService {
     public void deleteReadingById(final Long id){
         readingRepository.deleteById(id);
     }
+
+    public void deleteAllReadings(){ readingRepository.deleteAll();};
 
     public ReadingEntity saveReading(final ReadingEntity reading){
         return readingRepository.save(reading);

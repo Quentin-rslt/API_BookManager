@@ -12,13 +12,10 @@ import java.util.List;
 @RestController
 public class ReadingController {
     @Autowired
-    ReadingService readingService;
-    @Autowired
-    BookService bookService;
-
+    private ReadingService readingService;
     @GetMapping(value = "/api/reading/{id}")
     public ReadingEntity getReadingById(@PathVariable(value = "id") Long id){
-        return readingService.getReadingById(id);
+        return readingService.getReadingById(id).get();
     }
 
     @GetMapping(value="/api/reading/all")
@@ -31,16 +28,13 @@ public class ReadingController {
         readingService.deleteReadingById(id);
     }
 
-    @PostMapping(value = "/api/reading/save")
-    public ReadingEntity saveReading(@RequestBody ReadingEntity reading){
-        return readingService.saveReading(reading);
+    @DeleteMapping(value = "/api/reading/all")
+    public void deleteAllReadings(){
+        readingService.deleteAllReadings();
     }
 
-    @PostMapping(value = "api/book/{bookId}/reading/save")
-    public ReadingEntity saveReadingToBook(@PathVariable(value = "bookId") long bookId, @RequestBody ReadingEntity reading){
-        BookEntity book = bookService.getBookById(bookId);
-        book.addReading(reading);
-
+    @PostMapping(value = "/api/reading/save")
+    public ReadingEntity saveReading(@RequestBody ReadingEntity reading){
         return readingService.saveReading(reading);
     }
 }
