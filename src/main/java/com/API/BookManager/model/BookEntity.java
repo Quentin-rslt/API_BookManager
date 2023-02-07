@@ -34,9 +34,6 @@ public class BookEntity {
     @Column(name="notePerso")
     private double notePerso;
 
-    @Column(name="noteBabelio")
-    private double noteBabelio;
-
     @Column(name="releaseYear")
     private String releaseYear;
 

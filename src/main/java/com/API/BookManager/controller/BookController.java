@@ -1,6 +1,8 @@
 package com.API.BookManager.controller;
 
 import com.API.BookManager.model.BookEntity;
+import com.API.BookManager.model.ReadingEntity;
+import com.API.BookManager.model.TagEntity;
 import com.API.BookManager.service.ReadingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,8 +36,8 @@ public class BookController {
     public void deleteBooks(){ bookService.deleteBooks(); }
 
     @PostMapping(value = "/api/book/save")
-    public BookEntity saveBook(@RequestBody BookEntity book){
-        return bookService.saveBook(book);
+    public BookEntity saveBook(@RequestBody BookEntity book, List<ReadingEntity> readings, List<TagEntity> tags){
+        return bookService.saveBook(book, readings, tags);
     }
 
     @PutMapping(value = "/api/book/{id}")
@@ -53,7 +55,6 @@ public class BookController {
             }
             oldBook.get().setNumberOP(newBook.getNumberOP());
             oldBook.get().setNotePerso(newBook.getNotePerso());
-            oldBook.get().setNoteBabelio(newBook.getNoteBabelio());
             if(newBook.getReleaseYear()!=null){
                 oldBook.get().setReleaseYear(newBook.getReleaseYear());
             }
@@ -61,8 +62,9 @@ public class BookController {
                 oldBook.get().setSummary(newBook.getSummary());
             }
             oldBook.get().setReadings(newBook.getReadings());
+            oldBook.get().setTags(newBook.getTags());
 
-            bookService.saveBook(oldBook.get());
+            bookService.saveBook(oldBook.get(), oldBook.get().getReadings(), oldBook.get().getTags());
             return oldBook.get();
         }
         else {
