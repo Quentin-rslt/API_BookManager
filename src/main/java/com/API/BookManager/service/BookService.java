@@ -25,6 +25,8 @@ public class BookService {
         bookRepository.deleteById(id);
     }
 
+    public void deleteBooks(){ bookRepository.deleteAll(); }
+
     public BookEntity saveBook(BookEntity bookEntity){
         return bookRepository.save(bookEntity);
     }

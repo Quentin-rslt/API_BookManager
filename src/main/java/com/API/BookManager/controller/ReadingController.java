@@ -29,8 +29,8 @@ public class ReadingController {
     }
 
     @DeleteMapping(value = "/api/reading/all")
-    public void deleteAllReadings(){
-        readingService.deleteAllReadings();
+    public void deleteReadings(){
+        readingService.deleteReadings();
     }
 
     @PostMapping(value = "/api/reading/save")

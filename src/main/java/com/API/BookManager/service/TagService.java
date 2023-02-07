@@ -25,6 +25,8 @@ public class TagService {
         tagRepository.deleteById(id);
     }
 
+    public void deleteTags(){ tagRepository.deleteAll(); }
+
     public TagEntity saveTag(TagEntity tag){
         return tagRepository.save(tag);
     }

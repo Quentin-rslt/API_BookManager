@@ -25,7 +25,7 @@ public class ReadingService {
         readingRepository.deleteById(id);
     }
 
-    public void deleteAllReadings(){ readingRepository.deleteAll();};
+    public void deleteReadings(){ readingRepository.deleteAll();};
 
     public ReadingEntity saveReading(final ReadingEntity reading){
         return readingRepository.save(reading);

@@ -25,6 +25,14 @@ public class BookController {
         return bookService.getBookById(id).get();
     }
 
+    @DeleteMapping(value = "/api/book/{id}")
+    public void deleteBookById(@PathVariable(value = "id") long id){
+        bookService.deleteBookById(id);
+    }
+
+    @DeleteMapping(value = "/api/book/all")
+    public void deleteBooks(){ bookService.deleteBooks(); }
+
     @PostMapping(value = "/api/book/save")
     public BookEntity saveBook(@RequestBody BookEntity book){
         return bookService.saveBook(book);
@@ -60,10 +68,5 @@ public class BookController {
         else {
             return null;
         }
-    }
-
-    @DeleteMapping(value = "/api/book/{id}")
-    public void deleteBookById(@PathVariable(value = "id") long id){
-        bookService.deleteBookById(id);
     }
 }
