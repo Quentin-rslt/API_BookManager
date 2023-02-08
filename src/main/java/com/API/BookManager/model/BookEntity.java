@@ -65,14 +65,4 @@ public class BookEntity {
         readings.remove(reading);
         reading.setBook(null);
     }
-
-    public void addTag(TagEntity tag) {
-        tags.add(tag);
-        tag.getBooks().add(this);
-    }
-
-    public void removeTag(TagEntity tag) {
-        tags.remove(tag);
-        tag.getBooks().remove(this);
-    }
 }

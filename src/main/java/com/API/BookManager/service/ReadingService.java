@@ -1,5 +1,6 @@
 package com.API.BookManager.service;
 
+import com.API.BookManager.model.BookEntity;
 import com.API.BookManager.model.ReadingEntity;
 import com.API.BookManager.repository.ReadingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,25 @@ public class ReadingService {
         return readingRepository.findAll();
     }
 
+    public List<ReadingEntity> getReadingsByBoookId(final Long id){
+        return readingRepository.findByBookId(id);
+    }
+
+    public void deleteReading(final ReadingEntity reading){
+        readingRepository.delete(reading);
+    }
+
     public void deleteReadingById(final Long id){
         readingRepository.deleteById(id);
     }
 
-    public void deleteReadings(){ readingRepository.deleteAll();};
+    public void deleteReadings(){
+        readingRepository.deleteAll();
+    }
+
+    public void deleteReadingsByBookId(final Long id){
+        readingRepository.deleteByBookId(id);
+    }
 
     public ReadingEntity saveReading(final ReadingEntity reading){
         return readingRepository.save(reading);

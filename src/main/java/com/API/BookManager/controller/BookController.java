@@ -21,25 +21,25 @@ public class BookController {
     }
 
     @GetMapping(value = "/api/book/{id}")
-    public BookEntity getBookById(@PathVariable(value = "id") Long id){
+    public BookEntity getBookById(@PathVariable(value = "id") final Long id){
         return bookService.getBookById(id).get();
     }
 
-    @DeleteMapping(value = "/api/book/{id}")
-    public void deleteBookById(@PathVariable(value = "id") long id){
+    @DeleteMapping(value = "/api/deleteBook/{id}")
+    public void deleteBookById(@PathVariable(value = "id") final Long id){
         bookService.deleteBookById(id);
     }
 
-    @DeleteMapping(value = "/api/book/all")
+    @DeleteMapping(value = "/api/deleteBook/all")
     public void deleteBooks(){ bookService.deleteBooks(); }
 
-    @PostMapping(value = "/api/book/save")
-    public BookEntity saveBook(@RequestBody BookEntity book, @RequestBody List<ReadingEntity> readings, @RequestBody List<TagEntity> tags){
+    @PostMapping(value = "/api/createBook/save")
+    public BookEntity saveBook(@RequestBody final  BookEntity book, @RequestBody final  List<ReadingEntity> readings, @RequestBody final  List<TagEntity> tags){
         return bookService.addBook(book, readings, tags);
     }
 
-    @PutMapping(value = "/api/book/{id}")
-    public BookEntity updateBookById(@PathVariable(value = "id") Long id, @RequestBody BookEntity newBook, @RequestBody List<ReadingEntity> readings, @RequestBody List<TagEntity> tags){
+    @PutMapping(value = "/api/updateBook/{id}")
+    public BookEntity updateBookById(@PathVariable(value = "id") final  Long id, @RequestBody final  BookEntity newBook, @RequestBody final  List<ReadingEntity> readings, @RequestBody final  List<TagEntity> tags){
         return bookService.updateBook(id, newBook, readings, tags);
     }
 }

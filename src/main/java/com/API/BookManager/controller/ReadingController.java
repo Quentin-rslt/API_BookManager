@@ -14,7 +14,7 @@ public class ReadingController {
     @Autowired
     private ReadingService readingService;
     @GetMapping(value = "/api/reading/{id}")
-    public ReadingEntity getReadingById(@PathVariable(value = "id") Long id){
+    public ReadingEntity getReadingById(@PathVariable(value = "id") final Long id){
         return readingService.getReadingById(id).get();
     }
 
@@ -23,18 +23,33 @@ public class ReadingController {
         return readingService.getReadings();
     }
 
-    @DeleteMapping(value = "/api/reading/{id}")
-    public void deleteReadingById(@PathVariable(value = "id") long id){
+    @GetMapping(value = "/api/reading/all/book/{bookId}")
+    public List<ReadingEntity> getReadingsByBookId(@PathVariable(value = "bookId")final Long bookId){
+        return readingService.getReadingsByBoookId(bookId);
+    }
+
+    @DeleteMapping(value = "/api/deleteReading")
+    public void deleteReading(@RequestBody final ReadingEntity reading){
+        readingService.deleteReading(reading);
+    }
+
+    @DeleteMapping(value = "/api/deleteReading/{id}")
+    public void deleteReadingById(@PathVariable(value = "id") final Long id){
         readingService.deleteReadingById(id);
     }
 
-    @DeleteMapping(value = "/api/reading/all")
+    @DeleteMapping(value = "/api/deleteReading/all")
     public void deleteReadings(){
         readingService.deleteReadings();
     }
 
-    @PostMapping(value = "/api/reading/save")
-    public ReadingEntity saveReading(@RequestBody ReadingEntity reading){
+    @DeleteMapping(value = "/api/deleteReading/all/book/{bookId}")
+    public void deleteReadingsByBookId(@PathVariable(value = "bookId") final Long bookId){
+        readingService.deleteReadingsByBookId(bookId);
+    }
+
+    @PostMapping(value = "/api/saveReading/save")
+    public ReadingEntity saveReading(@RequestBody final ReadingEntity reading){
         return readingService.saveReading(reading);
     }
 }

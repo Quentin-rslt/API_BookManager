@@ -1,5 +1,6 @@
 package com.API.BookManager.service;
 
+import com.API.BookManager.model.BookEntity;
 import com.API.BookManager.model.TagEntity;
 import com.API.BookManager.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +22,21 @@ public class TagService {
         return tagRepository.findAll();
     }
 
+    public List<TagEntity> getTagsByBookId(final Long bookId){
+        return tagRepository.findTagsByBookId(bookId);
+    }
+
+    public List<BookEntity> getBooksByTagId(final Long tagId){
+        return tagRepository.findById(tagId).get().getBooks();
+    }
+
     public void deleteTagById(final Long id){
         tagRepository.deleteById(id);
     }
 
     public void deleteTags(){ tagRepository.deleteAll(); }
 
-    public TagEntity saveTag(TagEntity tag){
+    public TagEntity saveTag(final TagEntity tag){
         return tagRepository.save(tag);
     }
 }

@@ -1,6 +1,6 @@
 package com.API.BookManager.controller;
 
-import com.API.BookManager.model.ReadingEntity;
+import com.API.BookManager.model.BookEntity;
 import com.API.BookManager.model.TagEntity;
 import com.API.BookManager.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ public class TagController {
     TagService tagService;
 
     @GetMapping(value = "/api/tag/{id}")
-    public TagEntity getTagById(@PathVariable(value = "id") Long id){
+    public TagEntity getTagById(@PathVariable(value = "id") final Long id){
         return tagService.getTagById(id).get();
     }
 
@@ -23,18 +23,28 @@ public class TagController {
         return tagService.getTags();
     }
 
-    @DeleteMapping(value = "/api/tag/{id}")
-    public void deleteTagById(@PathVariable(value = "id") long id){
+    @GetMapping(value = "/api/tag/all/book/{bookId}")
+    public List<TagEntity> getTagsByBookId(@PathVariable(value = "bookId") final Long bookId){
+        return tagService.getTagsByBookId(bookId);
+    }
+
+    @GetMapping(value = "/api/tag/{tagId}/book/all")
+    public List<BookEntity> getBooksByTagId(@PathVariable(value = "tagId") final Long tagId){
+        return tagService.getBooksByTagId(tagId);
+    }
+
+    @DeleteMapping(value = "/api/deleteTag/{id}")
+    public void deleteTagById(@PathVariable(value = "id") final Long id){
         tagService.deleteTagById(id);
     }
 
-    @DeleteMapping(value = "/api/tag/all")
+    @DeleteMapping(value = "/api/deleteTag/all")
     public void deleteTags(){
         tagService.deleteTags();
     }
 
-    @PostMapping(value = "/api/tag/save")
-    public TagEntity saveTag(@RequestBody TagEntity tag) {
+    @PostMapping(value = "/api/saveTag/save")
+    public TagEntity saveTag(@RequestBody final  TagEntity tag) {
         return tagService.saveTag(tag);
     }
 }

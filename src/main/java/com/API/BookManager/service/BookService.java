@@ -23,14 +23,14 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    public void deleteBookById(final long id){
+    public void deleteBookById(final Long id){
         bookRepository.deleteById(id);
     }
 
     public void deleteBooks(){ bookRepository.deleteAll(); }
 
-    public BookEntity addBook(BookEntity newBook, List<ReadingEntity> readings, List<TagEntity> tags){
-        if(bookRepository.findByTitle(newBook.getTitle()).isPresent() && bookRepository.findByAuthor(newBook.getAuthor()).isPresent()){
+    public BookEntity addBook(final BookEntity newBook, final List<ReadingEntity> readings, final List<TagEntity> tags){
+        if(bookRepository.findByTitleAndAuthor(newBook.getTitle(), newBook.getAuthor()).isPresent()){
             return null;
         }
 
@@ -38,16 +38,16 @@ public class BookService {
             newBook.addReading(reading);
         }
         for(TagEntity tag : tags){
-            newBook.addTag(tag);
+            tag.addBook(newBook);
         }
 
         return bookRepository.save(newBook);
     }
 
-    public BookEntity updateBook(Long id, BookEntity newBook, List<ReadingEntity> readings, List<TagEntity> tags){
-        Optional<BookEntity> oldBook = bookRepository.findById(id);
+    public BookEntity updateBook(final Long id, final BookEntity newBook, final List<ReadingEntity> readings, final List<TagEntity> tags){
+        final Optional<BookEntity> oldBook = bookRepository.findById(id);
         if(oldBook.isPresent()){
-            if(bookRepository.findByTitle(newBook.getTitle()).isPresent() && bookRepository.findByAuthor(newBook.getAuthor()).isPresent()){
+            if(bookRepository.findByTitleAndAuthor(newBook.getTitle(), newBook.getAuthor()).isPresent()){
                 return null;
             }
 
@@ -70,7 +70,7 @@ public class BookService {
                 newBook.addReading(reading);
             }
             for(TagEntity tag : tags){
-                newBook.addTag(tag);
+                tag.addBook(newBook);
             }
 
             oldBook.get().setReadings(newBook.getReadings());

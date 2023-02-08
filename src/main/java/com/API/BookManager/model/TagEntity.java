@@ -36,4 +36,15 @@ public class TagEntity {
         this.textTag = textTag;
         this.colorTag = colorTag;
     }
+
+    /****************************** helpers methods ******************************/
+    public void addBook(BookEntity book) {
+        books.add(book);
+        book.getTags().add(this);
+    }
+
+    public void removeBook(BookEntity book) {
+        books.remove(book);
+        book.getTags().remove(this);
+    }
 }
