@@ -1,8 +1,6 @@
 package com.API.BookManager.controller;
 
-import com.API.BookManager.model.BookEntity;
 import com.API.BookManager.model.ReadingEntity;
-import com.API.BookManager.service.BookService;
 import com.API.BookManager.service.ReadingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +13,7 @@ public class ReadingController {
     private ReadingService readingService;
     @GetMapping(value = "/api/reading/{id}")
     public ReadingEntity getReadingById(@PathVariable(value = "id") final Long id){
-        return readingService.getReadingById(id).get();
+        return readingService.getReadingById(id).isPresent() ? readingService.getReadingById(id).get() : null;
     }
 
     @GetMapping(value="/api/reading/all")
@@ -28,11 +26,6 @@ public class ReadingController {
         return readingService.getReadingsByBoookId(bookId);
     }
 
-    @DeleteMapping(value = "/api/deleteReading")
-    public void deleteReading(@RequestBody final ReadingEntity reading){
-        readingService.deleteReading(reading);
-    }
-
     @DeleteMapping(value = "/api/deleteReading/{id}")
     public void deleteReadingById(@PathVariable(value = "id") final Long id){
         readingService.deleteReadingById(id);
@@ -41,11 +34,6 @@ public class ReadingController {
     @DeleteMapping(value = "/api/deleteReading/all")
     public void deleteReadings(){
         readingService.deleteReadings();
-    }
-
-    @DeleteMapping(value = "/api/deleteReading/all/book/{bookId}")
-    public void deleteReadingsByBookId(@PathVariable(value = "bookId") final Long bookId){
-        readingService.deleteReadingsByBookId(bookId);
     }
 
     @PostMapping(value = "/api/saveReading/save")

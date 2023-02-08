@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import com.API.BookManager.service.BookService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class BookController {
@@ -22,7 +21,7 @@ public class BookController {
 
     @GetMapping(value = "/api/book/{id}")
     public BookEntity getBookById(@PathVariable(value = "id") final Long id){
-        return bookService.getBookById(id).get();
+        return bookService.getBookById(id).isPresent() ? bookService.getBookById(id).get() : null;
     }
 
     @DeleteMapping(value = "/api/deleteBook/{id}")

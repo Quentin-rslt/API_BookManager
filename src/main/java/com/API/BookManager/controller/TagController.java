@@ -15,7 +15,7 @@ public class TagController {
 
     @GetMapping(value = "/api/tag/{id}")
     public TagEntity getTagById(@PathVariable(value = "id") final Long id){
-        return tagService.getTagById(id).get();
+        return tagService.getTagById(id).isPresent() ? tagService.getTagById(id).get() : null;
     }
 
     @GetMapping(value="/api/tag/all")

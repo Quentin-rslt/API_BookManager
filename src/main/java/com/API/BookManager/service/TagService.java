@@ -27,7 +27,7 @@ public class TagService {
     }
 
     public List<BookEntity> getBooksByTagId(final Long tagId){
-        return tagRepository.findById(tagId).get().getBooks();
+        return tagRepository.findById(tagId).isPresent() ? tagRepository.findById(tagId).get().getBooks() : null;
     }
 
     public void deleteTagById(final Long id){
