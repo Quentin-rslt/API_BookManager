@@ -23,14 +23,14 @@ public class TagController {
         return tagService.getTags();
     }
 
-    @GetMapping(value = "/api/tag/all/book/{bookId}")
-    public List<TagEntity> getTagsByBookId(@PathVariable(value = "bookId") final Long bookId){
-        return tagService.getTagsByBookId(bookId);
+    @GetMapping(value = "/api/tag/all/book/{idBook}")
+    public List<TagEntity> getTagsByIdBook(@PathVariable(value = "idBook") final Long idBook){
+        return tagService.getTagsByIdBook(idBook);
     }
 
-    @GetMapping(value = "/api/tag/{tagId}/book/all")
-    public List<BookEntity> getBooksByTagId(@PathVariable(value = "tagId") final Long tagId){
-        return tagService.getBooksByTagId(tagId);
+    @GetMapping(value = "/api/tag/{idTag}/book/all")
+    public List<BookEntity> getBooksByIdTag(@PathVariable(value = "idTag") final Long idTag){
+        return tagService.getBooksByIdTag(idTag);
     }
 
     @DeleteMapping(value = "/api/deleteTag/{id}")
@@ -43,8 +43,13 @@ public class TagController {
         tagService.deleteTags();
     }
 
-    @PostMapping(value = "/api/saveTag/save")
-    public TagEntity saveTag(@RequestBody final  TagEntity tag) {
-        return tagService.saveTag(tag);
+    @PostMapping(value = "/api/addTag/")
+    public TagEntity addTag(@RequestBody final  TagEntity tag) {
+        return tagService.addTag(tag);
+    }
+
+    @PostMapping(value = "/api/updateTag/{idTag}")
+    public TagEntity updateTag(@PathVariable(value = "idTag") final Long idTag, @RequestBody final  TagEntity newTag) {
+        return tagService.updateTag(idTag, newTag);
     }
 }

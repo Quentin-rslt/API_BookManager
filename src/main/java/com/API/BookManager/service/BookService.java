@@ -66,15 +66,8 @@ public class BookService {
                 oldBook.get().setSummary(newBook.getSummary());
             }
 
-            for(ReadingEntity reading: readings) {
-                newBook.addReading(reading);
-            }
-            for(TagEntity tag : tags){
-                tag.addBook(newBook);
-            }
-
-            oldBook.get().setReadings(newBook.getReadings());
-            oldBook.get().setTags(newBook.getTags());
+            oldBook.get().setReadings(readings);
+            oldBook.get().setTags(tags);
 
             return bookRepository.save(oldBook.get());
         }

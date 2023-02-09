@@ -22,11 +22,11 @@ public class TagService {
         return tagRepository.findAll();
     }
 
-    public List<TagEntity> getTagsByBookId(final Long bookId){
-        return tagRepository.findTagsByBookId(bookId);
+    public List<TagEntity> getTagsByIdBook(final Long idBook){
+        return tagRepository.findTagsByIdBook(idBook);
     }
 
-    public List<BookEntity> getBooksByTagId(final Long tagId){
+    public List<BookEntity> getBooksByIdTag(final Long tagId){
         return tagRepository.findById(tagId).isPresent() ? tagRepository.findById(tagId).get().getBooks() : null;
     }
 
@@ -36,7 +36,27 @@ public class TagService {
 
     public void deleteTags(){ tagRepository.deleteAll(); }
 
-    public TagEntity saveTag(final TagEntity tag){
-        return tagRepository.save(tag);
+    public TagEntity addTag(final TagEntity tag){
+        return tagRepository.findByTextTag(tag.getTextTag()).isPresent() ? tagRepository.save(tag) : null;
+    }
+
+    public TagEntity updateTag(final Long idTag, final TagEntity newTag){
+        Optional<TagEntity> oldTag = tagRepository.findById(idTag);
+
+        if(oldTag.isPresent()){
+            if(newTag.getTextTag() != null){
+                oldTag.get().setTextTag(newTag.getTextTag());
+            }
+            oldTag.get().setColorTag(newTag.getColorTag());
+
+            if(newTag.getBooks() != null){
+                oldTag.get().setBooks(newTag.getBooks());
+            }
+
+            return tagRepository.save(oldTag.get());
+        }
+        else{
+            return null;
+        }
     }
 }

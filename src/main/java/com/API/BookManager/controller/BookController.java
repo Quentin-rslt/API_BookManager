@@ -32,8 +32,8 @@ public class BookController {
     @DeleteMapping(value = "/api/deleteBook/all")
     public void deleteBooks(){ bookService.deleteBooks(); }
 
-    @PostMapping(value = "/api/createBook/save")
-    public BookEntity saveBook(@RequestBody final  BookEntity book, @RequestBody final  List<ReadingEntity> readings, @RequestBody final  List<TagEntity> tags){
+    @PostMapping(value = "/api/addBook")
+    public BookEntity addBook(@RequestBody final  BookEntity book, @RequestBody final  List<ReadingEntity> readings, @RequestBody final  List<TagEntity> tags){
         return bookService.addBook(book, readings, tags);
     }
 

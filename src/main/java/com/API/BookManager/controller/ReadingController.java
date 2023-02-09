@@ -21,9 +21,9 @@ public class ReadingController {
         return readingService.getReadings();
     }
 
-    @GetMapping(value = "/api/reading/all/book/{bookId}")
-    public List<ReadingEntity> getReadingsByBookId(@PathVariable(value = "bookId")final Long bookId){
-        return readingService.getReadingsByBoookId(bookId);
+    @GetMapping(value = "/api/reading/all/book/{idBook}")
+    public List<ReadingEntity> getReadingsByIdBook(@PathVariable(value = "idBook")final Long idBook){
+        return readingService.getReadingsByIdBook(idBook);
     }
 
     @DeleteMapping(value = "/api/deleteReading/{id}")
@@ -36,8 +36,13 @@ public class ReadingController {
         readingService.deleteReadings();
     }
 
-    @PostMapping(value = "/api/saveReading/save")
-    public ReadingEntity saveReading(@RequestBody final ReadingEntity reading){
-        return readingService.saveReading(reading);
+    @PostMapping(value = "/api/addReading")
+    public ReadingEntity addReading(@RequestBody final ReadingEntity reading){
+        return readingService.addReading(reading);
+    }
+
+    @PutMapping(value = "/api/updateReading/{readingId}")
+    public ReadingEntity updateReading(@PathVariable(value = "readingId") final Long readingId, @RequestBody final ReadingEntity newReading){
+        return readingService.updateReading(readingId, newReading);
     }
 }

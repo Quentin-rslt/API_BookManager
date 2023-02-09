@@ -21,8 +21,8 @@ public class ReadingService {
         return readingRepository.findAll();
     }
 
-    public List<ReadingEntity> getReadingsByBoookId(final Long id){
-        return readingRepository.findByBookId(id);
+    public List<ReadingEntity> getReadingsByIdBook(final Long id){
+        return readingRepository.findByIdBook(id);
     }
 
     public void deleteReadingById(final Long id){
@@ -33,7 +33,31 @@ public class ReadingService {
         readingRepository.deleteAll();
     }
 
-    public ReadingEntity saveReading(final ReadingEntity reading){
+    public ReadingEntity addReading(final ReadingEntity reading){
         return readingRepository.save(reading);
+    }
+
+    public ReadingEntity updateReading(final Long id, final ReadingEntity newReading){
+        Optional<ReadingEntity> oldReading = readingRepository.findById(id);
+
+        if(readingRepository.findByStartReadingDateAndEndReadingDate(newReading.getStartReadingDate(), newReading.getEndReadingDate()).isPresent()){
+            return null;
+        }
+        if(oldReading.isPresent()){
+            if(newReading.getStartReadingDate() != null){
+                oldReading.get().setStartReadingDate(newReading.getStartReadingDate());
+            }
+            if(newReading.getEndReadingDate() != null){
+                oldReading.get().setEndReadingDate(newReading.getEndReadingDate());
+            }
+            if(newReading.getBook() != null){
+                oldReading.get().setBook(newReading.getBook());
+            }
+
+            return readingRepository.save(oldReading.get());
+        }
+        else {
+            return null;
+        }
     }
 }
