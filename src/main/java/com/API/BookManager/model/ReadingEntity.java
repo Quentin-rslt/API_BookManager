@@ -1,5 +1,6 @@
 package com.API.BookManager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +16,7 @@ import java.sql.Date;
 public class ReadingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="idBook")
+    @Column(name="idReading")
     private Long idReading;
 
     @Temporal(TemporalType.DATE)
@@ -28,6 +29,7 @@ public class ReadingEntity {
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name="idBook")
+    @JsonIgnore
     private BookEntity book;
 
 

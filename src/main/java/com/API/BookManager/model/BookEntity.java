@@ -40,7 +40,7 @@ public class BookEntity {
     @OneToMany(mappedBy = "book",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReadingEntity> readings = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "books")
+    @ManyToMany(mappedBy = "books", cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private List<TagEntity> tags = new ArrayList<>();
 
     public BookEntity() {

@@ -11,7 +11,8 @@ import java.util.Optional;
 
 @Repository
 public interface ReadingRepository extends JpaRepository<ReadingEntity, Long> {
-    List<ReadingEntity> findByIdBook(final Long id);
+    @Query("select r from ReadingEntity r where r.book.idBook = ?1")
+    List<ReadingEntity> findByIdBook(Long idBook);
 
     @Query("select r from ReadingEntity r where r.startReadingDate = ?1 and r.endReadingDate = ?2")
     Optional<ReadingEntity> findByStartReadingDateAndEndReadingDate(Date startReadingDate, Date endReadingDate);
