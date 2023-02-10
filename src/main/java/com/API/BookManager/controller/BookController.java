@@ -29,6 +29,16 @@ public class BookController {
         return bookService.getBookByTitleAndAuthor(title, author).isPresent() ? bookService.getBookByTitleAndAuthor(title, author).get() : null;
     }
 
+    @GetMapping(value = "/api/book/{idBook}/tag/all")
+    public List<TagEntity> getTagsByIdBook(@PathVariable(value = "idBook") final Long idBook){
+        return bookService.getBookById(idBook).isPresent() ? bookService.getBookById(idBook).get().getTags() : null;
+    }
+
+    @GetMapping(value = "/api/book/{idBook}/reading/all")
+    public List<ReadingEntity> getReadingsByIdBook(@PathVariable(value = "idBook") final Long idBook){
+        return bookService.getBookById(idBook).isPresent() ? bookService.getBookById(idBook).get().getReadings() : null;
+    }
+
     @DeleteMapping(value = "/api/deleteBook/{id}")
     public void deleteBookById(@PathVariable(value = "id") final Long id){
         bookService.deleteBookById(id);
