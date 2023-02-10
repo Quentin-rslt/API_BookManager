@@ -42,9 +42,16 @@ public class BookService {
             newBook.addReading(reading);
         }
         for(TagEntity tag : tags){
-            tag.addBook(newBook);
+            newBook.addTag(tag);
         }
 
+        return bookRepository.save(newBook);
+    }
+
+    public BookEntity addBook(final BookEntity newBook){
+        if(bookRepository.findByTitleAndAuthor(newBook.getTitle(), newBook.getAuthor()).isPresent()){
+            return null;
+        }
         return bookRepository.save(newBook);
     }
 
@@ -72,6 +79,38 @@ public class BookService {
 
             oldBook.get().setReadings(readings);
             oldBook.get().setTags(tags);
+
+            return bookRepository.save(oldBook.get());
+        }
+        else {
+            return null;
+        }
+    }
+
+    public BookEntity updateBook(final Long id, final BookEntity newBook){
+        final Optional<BookEntity> oldBook = bookRepository.findById(id);
+        if(oldBook.isPresent()){
+            if(bookRepository.findByTitleAndAuthor(newBook.getTitle(), newBook.getAuthor()).isPresent()){
+                return null;
+            }
+
+            if(newBook.getTitle()!=null){
+                oldBook.get().setTitle(newBook.getTitle());
+            }
+            if(newBook.getAuthor()!=null){
+                oldBook.get().setAuthor(newBook.getAuthor());
+            }
+            oldBook.get().setNumberOP(newBook.getNumberOP());
+            oldBook.get().setNotePerso(newBook.getNotePerso());
+            if(newBook.getReleaseYear()!=null){
+                oldBook.get().setReleaseYear(newBook.getReleaseYear());
+            }
+            if(newBook.getSummary()!=null){
+                oldBook.get().setSummary(newBook.getSummary());
+            }
+
+            oldBook.get().setReadings(newBook.getReadings());
+            oldBook.get().setTags(newBook.getTags());
 
             return bookRepository.save(oldBook.get());
         }

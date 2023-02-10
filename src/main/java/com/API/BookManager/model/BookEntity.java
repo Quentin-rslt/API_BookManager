@@ -48,13 +48,23 @@ public class BookEntity {
     }
 
     public BookEntity(String title, String author, int numberOP, double notePerso, String releaseYear, String summary) {
-        super();
         this.title = title;
         this.author = author;
         this.numberOP = numberOP;
         this.notePerso = notePerso;
         this.releaseYear = releaseYear;
         this.summary = summary;
+    }
+
+    public BookEntity(String title, String author, int numberOP, double notePerso, String releaseYear, String summary, List<ReadingEntity> readings, List<TagEntity> tags) {
+        this.title = title;
+        this.author = author;
+        this.numberOP = numberOP;
+        this.notePerso = notePerso;
+        this.releaseYear = releaseYear;
+        this.summary = summary;
+        this.readings = readings;
+        this.tags = tags;
     }
 
     /****************************** helpers methods ******************************/
@@ -66,4 +76,14 @@ public class BookEntity {
         readings.remove(reading);
         reading.setBook(null);
     }
+    public void addTag(TagEntity tag) {
+        tags.add(tag);
+        tag.getBooks().add(this);
+    }
+
+    public void removeTag(TagEntity tag) {
+        tags.remove(tag);
+        tag.getBooks().remove(this);
+    }
+
 }

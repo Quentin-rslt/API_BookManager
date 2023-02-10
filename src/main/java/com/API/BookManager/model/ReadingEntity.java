@@ -37,9 +37,13 @@ public class ReadingEntity {
     }
 
     public ReadingEntity(Date startReadingDate, Date endReadingDate) {
-        super();
         this.startReadingDate = startReadingDate;
         this.endReadingDate = endReadingDate;
     }
 
+    public ReadingEntity(Date startReadingDate, Date endReadingDate, BookEntity book) {
+        this.startReadingDate = startReadingDate;
+        this.endReadingDate = endReadingDate;
+        this.book = book;
+    }
 }
