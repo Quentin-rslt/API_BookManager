@@ -40,18 +40,12 @@ public class ReadingService {
     public ReadingEntity updateReading(final Long id, final ReadingEntity newReading){
         Optional<ReadingEntity> oldReading = readingRepository.findById(id);
 
-        if(readingRepository.findByStartReadingDateAndEndReadingDate(newReading.getStartReadingDate(), newReading.getEndReadingDate()).isPresent()){
-            return null;
-        }
         if(oldReading.isPresent()){
             if(newReading.getStartReadingDate() != null){
                 oldReading.get().setStartReadingDate(newReading.getStartReadingDate());
             }
             if(newReading.getEndReadingDate() != null){
                 oldReading.get().setEndReadingDate(newReading.getEndReadingDate());
-            }
-            if(newReading.getBook() != null){
-                oldReading.get().setBook(newReading.getBook());
             }
 
             return readingRepository.save(oldReading.get());

@@ -37,21 +37,21 @@ public class TagService {
     public void deleteTags(){ tagRepository.deleteAll(); }
 
     public TagEntity addTag(final TagEntity tag){
-        return tagRepository.findByTextTag(tag.getTextTag()).isPresent() ? tagRepository.save(tag) : null;
+        return tagRepository.findByTextTag(tag.getTextTag()).isPresent() ? null : tagRepository.save(tag);
     }
 
     public TagEntity updateTag(final Long idTag, final TagEntity newTag){
         Optional<TagEntity> oldTag = tagRepository.findById(idTag);
+
+        if(tagRepository.findByTextTag(newTag.getTextTag()).isPresent()){
+            return null;
+        }
 
         if(oldTag.isPresent()){
             if(newTag.getTextTag() != null){
                 oldTag.get().setTextTag(newTag.getTextTag());
             }
             oldTag.get().setColorTag(newTag.getColorTag());
-
-            if(newTag.getBooks() != null){
-                oldTag.get().setBooks(newTag.getBooks());
-            }
 
             return tagRepository.save(oldTag.get());
         }

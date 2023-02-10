@@ -48,7 +48,7 @@ public class TagController {
         return tagService.addTag(tag);
     }
 
-    @PostMapping(value = "/api/updateTag/{idTag}")
+    @PutMapping(value = "/api/updateTag/{idTag}")
     public TagEntity updateTag(@PathVariable(value = "idTag") final Long idTag, @RequestBody final  TagEntity newTag) {
         return tagService.updateTag(idTag, newTag);
     }

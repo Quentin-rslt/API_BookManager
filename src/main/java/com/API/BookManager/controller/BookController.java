@@ -48,12 +48,12 @@ public class BookController {
     public void deleteBooks(){ bookService.deleteBooks(); }
 
     @PostMapping(value = "/api/addBook")
-    public BookEntity addBook(@RequestBody final  BookEntity book, @RequestBody final  List<ReadingEntity> readings, @RequestBody final  List<TagEntity> tags){
-        return bookService.addBook(book, readings, tags);
+    public BookEntity addBook(@RequestBody final  BookEntity book){
+        return bookService.addBook(book);
     }
 
     @PutMapping(value = "/api/updateBook/{id}")
-    public BookEntity updateBookById(@PathVariable(value = "id") final  Long id, @RequestBody final  BookEntity newBook, @RequestBody final  List<ReadingEntity> readings, @RequestBody final  List<TagEntity> tags){
-        return bookService.updateBook(id, newBook, readings, tags);
+    public BookEntity updateBookById(@PathVariable(value = "id") final  Long id, @RequestBody final  BookEntity newBook){
+        return bookService.updateBook(id, newBook);
     }
 }
