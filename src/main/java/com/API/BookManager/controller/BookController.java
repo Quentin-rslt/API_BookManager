@@ -24,6 +24,11 @@ public class BookController {
         return bookService.getBookById(id).isPresent() ? bookService.getBookById(id).get() : null;
     }
 
+    @GetMapping(value = "/api/book/{title}/{author}")
+    public BookEntity getBookByTitleAndAuthor(@PathVariable(value = "title") final String title, @PathVariable(value = "author") final String author){
+        return bookService.getBookByTitleAndAuthor(title, author).isPresent() ? bookService.getBookByTitleAndAuthor(title, author).get() : null;
+    }
+
     @DeleteMapping(value = "/api/deleteBook/{id}")
     public void deleteBookById(@PathVariable(value = "id") final Long id){
         bookService.deleteBookById(id);

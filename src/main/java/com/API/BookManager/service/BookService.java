@@ -15,8 +15,12 @@ public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
-    public Optional<BookEntity> getBookById(final long id){
+    public Optional<BookEntity> getBookById(final Long id){
         return bookRepository.findById(id);
+    }
+
+    public Optional<BookEntity> getBookByTitleAndAuthor(final String title, final String author){
+        return bookRepository.findByTitleAndAuthor(title, author);
     }
 
     public List<BookEntity> getBooks(){

@@ -43,7 +43,7 @@ public class TagController {
         tagService.deleteTags();
     }
 
-    @PostMapping(value = "/api/addTag/")
+    @PostMapping(value = "/api/addTag")
     public TagEntity addTag(@RequestBody final  TagEntity tag) {
         return tagService.addTag(tag);
     }
