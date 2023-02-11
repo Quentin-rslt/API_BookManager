@@ -11,36 +11,50 @@ import java.util.List;
 public class ReadingController {
     @Autowired
     private ReadingService readingService;
+
+    /**
+     * @see ReadingService#getReadingById(Long)
+     */
     @GetMapping(value = "/api/reading/{id}")
     public ReadingEntity getReadingById(@PathVariable(value = "id") final Long id){
-        return readingService.getReadingById(id).isPresent() ? readingService.getReadingById(id).get() : null;
+        return readingService.getReadingById(id);
     }
 
+    /**
+     * @see ReadingService#getReadings()
+     */
     @GetMapping(value="/api/reading/all")
     public List<ReadingEntity> getReadings(){
         return readingService.getReadings();
     }
 
-    @GetMapping(value = "/api/reading/all/book/{idBook}")
-    public List<ReadingEntity> getReadingsByIdBook(@PathVariable(value = "idBook")final Long idBook){
-        return readingService.getReadingsByIdBook(idBook);
-    }
-
+    /**
+     * @see ReadingService#deleteReadingById(Long) 
+     */
     @DeleteMapping(value = "/api/deleteReading/{id}")
     public void deleteReadingById(@PathVariable(value = "id") final Long id){
         readingService.deleteReadingById(id);
     }
 
+    /**
+     * @see ReadingService#deleteReadings() 
+     */
     @DeleteMapping(value = "/api/deleteReading/all")
     public void deleteReadings(){
         readingService.deleteReadings();
     }
 
+    /**
+     * @see ReadingService#addReading(ReadingEntity)
+     */
     @PostMapping(value = "/api/addReading")
     public ReadingEntity addReading(@RequestBody final ReadingEntity reading){
         return readingService.addReading(reading);
     }
 
+    /**
+     * @see ReadingService#updateReading(Long, ReadingEntity)
+     */
     @PutMapping(value = "/api/updateReading/{readingId}")
     public ReadingEntity updateReading(@PathVariable(value = "readingId") final Long readingId, @RequestBody final ReadingEntity newReading){
         return readingService.updateReading(readingId, newReading);

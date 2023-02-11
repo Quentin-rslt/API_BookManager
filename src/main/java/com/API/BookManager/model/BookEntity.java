@@ -47,15 +47,6 @@ public class BookEntity {
     public BookEntity() {
     }
 
-    public BookEntity(String title, String author, int numberOP, double notePerso, String releaseYear, String summary) {
-        this.title = title;
-        this.author = author;
-        this.numberOP = numberOP;
-        this.notePerso = notePerso;
-        this.releaseYear = releaseYear;
-        this.summary = summary;
-    }
-
     public BookEntity(String title, String author, int numberOP, double notePerso, String releaseYear, String summary, List<ReadingEntity> readings, List<TagEntity> tags) {
         this.title = title;
         this.author = author;
@@ -66,24 +57,4 @@ public class BookEntity {
         this.readings = readings;
         this.tags = tags;
     }
-
-    /****************************** helpers methods ******************************/
-    public void addReading(ReadingEntity reading) {
-        readings.add(reading);
-        reading.setBook(this);
-    }
-    public void removeReading(ReadingEntity reading) {
-        readings.remove(reading);
-        reading.setBook(null);
-    }
-    public void addTag(TagEntity tag) {
-        tags.add(tag);
-        tag.getBooks().add(this);
-    }
-
-    public void removeTag(TagEntity tag) {
-        tags.remove(tag);
-        tag.getBooks().remove(this);
-    }
-
 }

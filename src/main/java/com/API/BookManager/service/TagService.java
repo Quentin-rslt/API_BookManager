@@ -14,32 +14,56 @@ public class TagService {
     @Autowired
     private TagRepository tagRepository;
 
-    public Optional<TagEntity> getTagById(final Long id){
-        return tagRepository.findById(id);
+    /**
+     * @param id Long
+     * @return Tag by id
+     */
+    public TagEntity getTagById(final Long id){
+        return tagRepository.findById(id).isPresent() ? tagRepository.findById(id).get() : null;
     }
 
+    /**
+     * @return All tags
+     */
     public List<TagEntity> getTags(){
         return tagRepository.findAll();
     }
 
-    public List<TagEntity> getTagsByIdBook(final Long idBook){
-        return tagRepository.findTagsByIdBook(idBook);
-    }
-
+    /**
+     * @param tagId Long
+     * @return Books by id tag
+     */
     public List<BookEntity> getBooksByIdTag(final Long tagId){
         return tagRepository.findById(tagId).isPresent() ? tagRepository.findById(tagId).get().getBooks() : null;
     }
 
+    /**
+     * Delete tag by id
+     *
+     * @param id Long
+     */
     public void deleteTagById(final Long id){
         tagRepository.deleteById(id);
     }
 
+    /**
+     * Delete all tags
+     */
     public void deleteTags(){ tagRepository.deleteAll(); }
 
+    /**
+     * @param tag TagEntity
+     * @return New tag
+     */
     public TagEntity addTag(final TagEntity tag){
         return tagRepository.findByTextTag(tag.getTextTag()).isPresent() ? null : tagRepository.save(tag);
     }
 
+    /**
+     * @param idTag Long
+     * @param newTag TagEntity
+     * @return Old tag updated
+     */
     public TagEntity updateTag(final Long idTag, final TagEntity newTag){
         Optional<TagEntity> oldTag = tagRepository.findById(idTag);
 

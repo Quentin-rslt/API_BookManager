@@ -13,30 +13,50 @@ public class ReadingService {
     @Autowired
     private ReadingRepository readingRepository;
 
-    public Optional<ReadingEntity> getReadingById(final Long id){
-        return readingRepository.findById(id);
+    /**
+     * @param id Long
+     * @return Reading by id
+     */
+    public ReadingEntity getReadingById(final Long id){
+        return readingRepository.findById(id).isPresent() ? readingRepository.findById(id).get() : null;
     }
 
+    /**
+     * @return All reading
+     */
     public List<ReadingEntity> getReadings(){
         return readingRepository.findAll();
     }
 
-    public List<ReadingEntity> getReadingsByIdBook(final Long id){
-        return readingRepository.findByIdBook(id);
-    }
-
+    /**
+     * Delete reading by id
+     *
+     * @param id Long
+     */
     public void deleteReadingById(final Long id){
         readingRepository.deleteById(id);
     }
 
+    /**
+     * Delete all reading
+     */
     public void deleteReadings(){
         readingRepository.deleteAll();
     }
 
+    /**
+     * @param reading ReadingEntity
+     * @return New reading
+     */
     public ReadingEntity addReading(final ReadingEntity reading){
         return readingRepository.save(reading);
     }
 
+    /**
+     * @param id Long
+     * @param newReading ReadingEntity
+     * @return Old reading updated
+     */
     public ReadingEntity updateReading(final Long id, final ReadingEntity newReading){
         Optional<ReadingEntity> oldReading = readingRepository.findById(id);
 
