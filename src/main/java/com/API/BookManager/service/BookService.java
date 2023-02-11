@@ -86,6 +86,9 @@ public class BookService {
             if(tagRepository.findByTextTag(newBook.getTags().get(i).getTextTag()).isPresent()){
                 newBook.getTags().set(i, tagRepository.findByTextTag(newBook.getTags().get(i).getTextTag()).get());
             }
+            else{
+                return null;
+            }
         }
 
         return bookRepository.save(newBook);
@@ -132,7 +135,7 @@ public class BookService {
             for(int i = 0; i<newBook.getReadings().size(); i++){
                 ReadingEntity reading = newBook.getReadings().get(i);
                 oldBook.get().getReadings().add(reading);
-                reading.setBook(newBook);
+                reading.setBook(oldBook.get());
             }
 
             //Add tag of the old book, if the tag that is entered is already existing, and create tag if not exist
@@ -141,7 +144,7 @@ public class BookService {
                     oldBook.get().getTags().add(tagRepository.findByTextTag(newBook.getTags().get(i).getTextTag()).get());
                 }
                 else {
-                    oldBook.get().getTags().add(newBook.getTags().get(i));
+                    return null;
                 }
             }
 
