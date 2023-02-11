@@ -67,20 +67,15 @@ public class TagService {
     public TagEntity updateTag(final Long idTag, final TagEntity newTag){
         Optional<TagEntity> oldTag = tagRepository.findById(idTag);
 
-        if(tagRepository.findByTextTag(newTag.getTextTag()).isPresent()){
+        if(!newTag.getTextTag().equals(oldTag.get().getTextTag()) && tagRepository.findByTextTag(newTag.getTextTag()).isPresent()){
             return null;
         }
 
-        if(oldTag.isPresent()){
-            if(newTag.getTextTag() != null){
-                oldTag.get().setTextTag(newTag.getTextTag());
-            }
-            oldTag.get().setColorTag(newTag.getColorTag());
+        if(newTag.getTextTag() != null){
+            oldTag.get().setTextTag(newTag.getTextTag());
+        }
+        oldTag.get().setColorTag(newTag.getColorTag());
 
-            return tagRepository.save(oldTag.get());
-        }
-        else{
-            return null;
-        }
+        return tagRepository.save(oldTag.get());
     }
 }

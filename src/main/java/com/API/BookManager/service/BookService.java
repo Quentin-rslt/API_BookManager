@@ -105,47 +105,17 @@ public class BookService {
         final Optional<BookEntity> oldBook = bookRepository.findById(id);
         if(oldBook.isPresent()){
             if(bookRepository.findByTitleAndAuthor(newBook.getTitle(), newBook.getAuthor()).isPresent()){
-                return null;
-            }
-
-            //Update data of the book
-            if(newBook.getTitle()!=null){
-                oldBook.get().setTitle(newBook.getTitle());
-            }
-            if(newBook.getAuthor()!=null){
-                oldBook.get().setAuthor(newBook.getAuthor());
-            }
-            oldBook.get().setNumberOP(newBook.getNumberOP());
-            oldBook.get().setNotePerso(newBook.getNotePerso());
-            if(newBook.getReleaseYear()!=null){
-                oldBook.get().setReleaseYear(newBook.getReleaseYear());
-            }
-            if(newBook.getSummary()!=null){
-                oldBook.get().setSummary(newBook.getSummary());
-            }
-
-            //clear these readings and tags
-            oldBook.get().getReadings().clear();
-            oldBook.get().getTags().clear();
-
-            //Remove the relation between tags and the old book
-            for(TagEntity tag : newBook.getTags()){
-                tag.getBooks().remove(oldBook.get());
-            }
-
-            //Add new readings on the old book
-            for(int i = 0; i<newBook.getReadings().size(); i++){
-                ReadingEntity reading = newBook.getReadings().get(i);
-                oldBook.get().getReadings().add(reading);
-                reading.setBook(oldBook.get());
-            }
-
-            //Add an existing tag from the old book
-            for(int i = 0; i<newBook.getTags().size(); i++){
-                if(tagRepository.findByTextTag(newBook.getTags().get(i).getTextTag()).isPresent()){
-                    oldBook.get().getTags().add(tagRepository.findByTextTag(newBook.getTags().get(i).getTextTag()).get());
+                if(newBook.getTitle().equals(oldBook.get().getTitle()) && newBook.getAuthor().equals(oldBook.get().getAuthor())) {
+                    if(processOfUpdateBook(oldBook.get(), newBook)){
+                        return null;
+                    }
                 }
-                else {
+                else{
+                    return null;
+                }
+            }
+            else{
+                if(processOfUpdateBook(oldBook.get(), newBook)){
                     return null;
                 }
             }
@@ -155,5 +125,60 @@ public class BookService {
         else {
             return null;
         }
+    }
+
+    /**
+     * If tag don't exist, we don't create the book, it is necessary that tag exist
+     *
+     * @param oldBook BookEntity
+     * @param newBook BookEntity
+     * @return False if the tag don't exist
+     */
+    private boolean processOfUpdateBook(BookEntity oldBook, BookEntity newBook){
+        boolean tagNotExist = false;
+
+        //Update data of the book
+        if(newBook.getTitle()!=null){
+            oldBook.setTitle(newBook.getTitle());
+        }
+        if(newBook.getAuthor()!=null){
+            oldBook.setAuthor(newBook.getAuthor());
+        }
+        oldBook.setNumberOP(newBook.getNumberOP());
+        oldBook.setNotePerso(newBook.getNotePerso());
+        if(newBook.getReleaseYear()!=null){
+            oldBook.setReleaseYear(newBook.getReleaseYear());
+        }
+        if(newBook.getSummary()!=null){
+            oldBook.setSummary(newBook.getSummary());
+        }
+
+        //clear these readings and tags
+        oldBook.getReadings().clear();
+        oldBook.getTags().clear();
+
+        //Remove the relation between tags and the old book
+        for(TagEntity tag : newBook.getTags()){
+            tag.getBooks().remove(oldBook);
+        }
+
+        //Add new readings on the old book
+        for(int i = 0; i<newBook.getReadings().size(); i++){
+            ReadingEntity reading = newBook.getReadings().get(i);
+            oldBook.getReadings().add(reading);
+            reading.setBook(oldBook);
+        }
+
+        //Add an existing tag from the old book
+        for (int i = 0; i < newBook.getTags().size(); i++) {
+            if (tagRepository.findByTextTag(newBook.getTags().get(i).getTextTag()).isPresent()) {
+                oldBook.getTags().add(tagRepository.findByTextTag(newBook.getTags().get(i).getTextTag()).get());
+            }
+            else {
+                tagNotExist = true;
+            }
+        }
+
+        return tagNotExist;
     }
 }
