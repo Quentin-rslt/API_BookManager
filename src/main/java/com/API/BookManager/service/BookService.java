@@ -18,47 +18,57 @@ public class BookService {
     private TagRepository tagRepository;
 
     /**
+     * Get Book by id
+     *
      * @param id Long
-     * @return Book by id of book
+     * @return BookEntity
      */
     public BookEntity getBookById(final Long id){
         return bookRepository.findById(id).isPresent() ? bookRepository.findById(id).get() : null;
     }
 
     /**
+     * Get Book by title and author
+     *
      * @param title String
      * @param author String
-     * @return Book by title and author
+     * @return BookEntity
      */
     public BookEntity getBookByTitleAndAuthor(final String title, final String author){
         return bookRepository.findByTitleAndAuthor(title, author) .isPresent() ? bookRepository.findByTitleAndAuthor(title, author).get() : null;
     }
 
     /**
-     * @return All book
+     * Get all Book
+     *
+     * @return List<BookEntity>
      */
     public List<BookEntity> getBooks(){
         return bookRepository.findAll();
     }
 
     /**
+     * Get all tags by id of a Book
+     *
      * @param idBook Long
-     * @return tags by id book
+     * @return List<TagEntity>
      */
     public List<TagEntity> getTagsByIdBook(final Long idBook){
         return bookRepository.findById(idBook).isPresent() ? bookRepository.findById(idBook).get().getTags() : null;
     }
 
     /**
+     * Get all readings by id of a Book
+     *
      * @param idBook Long
-     * @return readings by id book
+     * @return List<ReadingEntity>
      */
     public List<ReadingEntity> getReadingsByIdBook(final Long idBook){
         return bookRepository.findById(idBook).isPresent() ? bookRepository.findById(idBook).get().getReadings() : null;
     }
 
     /**
-     * Delete book by id
+     * Delete Book by id
      *
      * @param id Long
      */
@@ -67,13 +77,15 @@ public class BookService {
     }
 
     /**
-     * Delete all book
+     * Delete all Book
      */
     public void deleteBooks(){ bookRepository.deleteAll(); }
 
     /**
+     * Create a new Book
+     *
      * @param newBook BookEntity
-     * @return New book to create a book
+     * @return BookEntity
      */
     public BookEntity addBook(final BookEntity newBook){
         if(bookRepository.findByTitleAndAuthor(newBook.getTitle(), newBook.getAuthor()).isPresent()){
@@ -97,9 +109,11 @@ public class BookService {
     }
 
     /**
+     * Update a Book
+     *
      * @param id Long
      * @param newBook BookEntity
-     * @return Old book to update this
+     * @return BookEntity
      */
     public BookEntity updateBook(final Long id, final BookEntity newBook){
         final Optional<BookEntity> oldBook = bookRepository.findById(id);

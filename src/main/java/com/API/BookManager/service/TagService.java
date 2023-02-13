@@ -15,30 +15,36 @@ public class TagService {
     private TagRepository tagRepository;
 
     /**
+     * Get Tag by id
+     *
      * @param id Long
-     * @return Tag by id
+     * @return TagEntity
      */
     public TagEntity getTagById(final Long id){
         return tagRepository.findById(id).isPresent() ? tagRepository.findById(id).get() : null;
     }
 
     /**
-     * @return All tags
+     * Get all Tag
+     *
+     * @return List<TagEntity>
      */
     public List<TagEntity> getTags(){
         return tagRepository.findAll();
     }
 
     /**
+     * Get all Book by id of a Tag
+     *
      * @param tagId Long
-     * @return Books by id tag
+     * @return List<BookEntity>
      */
     public List<BookEntity> getBooksByIdTag(final Long tagId){
         return tagRepository.findById(tagId).isPresent() ? tagRepository.findById(tagId).get().getBooks() : null;
     }
 
     /**
-     * Delete tag by id
+     * Delete Tag by id
      *
      * @param id Long
      */
@@ -47,35 +53,44 @@ public class TagService {
     }
 
     /**
-     * Delete all tags
+     * Delete all Tag
      */
     public void deleteTags(){ tagRepository.deleteAll(); }
 
     /**
+     * Create a new Tag
+     *
      * @param tag TagEntity
-     * @return New tag
+     * @return TagEntity
      */
     public TagEntity addTag(final TagEntity tag){
         return tagRepository.findByTextTag(tag.getTextTag()).isPresent() ? null : tagRepository.save(tag);
     }
 
     /**
+     * Update a Tag
+     *
      * @param idTag Long
      * @param newTag TagEntity
-     * @return Old tag updated
+     * @return TagEntity
      */
     public TagEntity updateTag(final Long idTag, final TagEntity newTag){
         Optional<TagEntity> oldTag = tagRepository.findById(idTag);
 
-        if(!newTag.getTextTag().equals(oldTag.get().getTextTag()) && tagRepository.findByTextTag(newTag.getTextTag()).isPresent()){
+        if(oldTag.isPresent()){
+            if(!newTag.getTextTag().equals(oldTag.get().getTextTag()) && tagRepository.findByTextTag(newTag.getTextTag()).isPresent()){
+                return null;
+            }
+
+            if(newTag.getTextTag() != null){
+                oldTag.get().setTextTag(newTag.getTextTag());
+            }
+            oldTag.get().setColorTag(newTag.getColorTag());
+
+            return tagRepository.save(oldTag.get());
+        }
+        else {
             return null;
         }
-
-        if(newTag.getTextTag() != null){
-            oldTag.get().setTextTag(newTag.getTextTag());
-        }
-        oldTag.get().setColorTag(newTag.getColorTag());
-
-        return tagRepository.save(oldTag.get());
     }
 }
