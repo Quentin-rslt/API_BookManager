@@ -9,6 +9,7 @@ import com.API.BookManager.service.BookService;
 
 import java.util.List;
 
+@CrossOrigin(origins= {"*"}, maxAge = 4800, allowCredentials = "false" )
 @RestController
 public class BookController {
     @Autowired
