@@ -48,6 +48,16 @@ public class BookService {
     }
 
     /**
+     * Get all Book by text of search bar
+     *
+     * @param text String
+     * @return List<BookEntity>
+     */
+    public List<BookEntity> getBooksByTextSearch(final String text){
+        return bookRepository.findLikeTextSearch(text);
+    }
+
+    /**
      * Get all tags by id of a Book
      *
      * @param idBook Long

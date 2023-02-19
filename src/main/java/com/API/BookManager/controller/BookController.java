@@ -24,6 +24,18 @@ public class BookController {
     }
 
     /**
+     * Get all Book by text of search bar
+     *
+     * @param text String
+     * @return List<BookEntity>
+     */
+    @GetMapping(value="/api/book/text/{text}")
+    public List<BookEntity> getBooksByTextSearch(@PathVariable(value = "text") final String text){
+        return bookService.getBooksByTextSearch(text);
+    }
+
+
+    /**
      * @see BookService#getBookById(Long)
      */
     @GetMapping(value = "/api/book/{id}")
