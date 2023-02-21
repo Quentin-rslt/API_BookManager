@@ -25,22 +25,22 @@ public class TagService {
     }
 
     /**
+     * Get Tag by idBook
+     *
+     * @param idBook Long
+     * @return List<TagEntity> by id book
+     */
+    public List<TagEntity> getTagByIdBook(final Long idBook){
+        return tagRepository.findByIdBook(idBook);
+    }
+
+    /**
      * Get all Tag
      *
      * @return List<TagEntity>
      */
     public List<TagEntity> getTags(){
         return tagRepository.findAll();
-    }
-
-    /**
-     * Get all Book by id of a Tag
-     *
-     * @param tagId Long
-     * @return List<BookEntity>
-     */
-    public List<BookEntity> getBooksByIdTag(final Long tagId){
-        return tagRepository.findById(tagId).isPresent() ? tagRepository.findById(tagId).get().getBooks() : null;
     }
 
     /**

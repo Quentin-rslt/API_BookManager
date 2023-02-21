@@ -23,17 +23,6 @@ public class BookController {
         return bookService.getBooks();
     }
 
-    /**
-     * Get all Book by text of search bar
-     *
-     * @param text String
-     * @return List<BookEntity>
-     */
-    @GetMapping(value="/api/book/text/{text}")
-    public List<BookEntity> getBooksByTextSearch(@PathVariable(value = "text") final String text){
-        return bookService.getBooksByTextSearch(text);
-    }
-
 
     /**
      * @see BookService#getBookById(Long)
@@ -44,28 +33,19 @@ public class BookController {
     }
 
     /**
+     * @see BookService#getBookByIdTag(Long)
+     */
+    @GetMapping(value = "/api/book/tag/{idTag}")
+    public List<BookEntity> getBookByIdTag(@PathVariable(value = "idTag") final Long idTag){
+        return bookService.getBookByIdTag(idTag);
+    }
+
+    /**
      * @see BookService#getBookByTitleAndAuthor(String, String)
      */
     @GetMapping(value = "/api/book/{title}/{author}")
     public BookEntity getBookByTitleAndAuthor(@PathVariable(value = "title") final String title, @PathVariable(value = "author") final String author){
         return bookService.getBookByTitleAndAuthor(title, author);
-    }
-
-    /**
-     * @see BookService#getTagsByIdBook(Long) 
-     */
-    @GetMapping(value = "/api/book/{idBook}/tag/all")
-    public List<TagEntity> getTagsByIdBook(@PathVariable(value = "idBook") final Long idBook){
-        return bookService.getTagsByIdBook(idBook);
-    }
-
-
-    /**
-     * @see BookService#getReadingsByIdBook(Long)
-     */
-    @GetMapping(value = "/api/book/{idBook}/reading/all")
-    public List<ReadingEntity> getReadingsByIdBook(@PathVariable(value = "idBook") final Long idBook){
-        return bookService.getReadingsByIdBook(idBook);
     }
 
     /**

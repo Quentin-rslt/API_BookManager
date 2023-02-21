@@ -13,8 +13,8 @@ public interface BookRepository extends JpaRepository<BookEntity, Long> {
     @Query("select b from BookEntity b where b.title = ?1 and b.author = ?2")
     Optional<BookEntity> findByTitleAndAuthor(String title, String author);
 
-    @Query("""
-            select b from BookEntity b left join b.tags tags
-            where b.title like %:text% or b.author like %:text% or b.releaseYear like %:text% or b.summary like %:text% or tags.textTag like %:text%""")
-    List<BookEntity> findLikeTextSearch(String text);
+    @Query("select b from BookEntity b inner join b.tags tags where tags.idTag = ?1")
+    List<BookEntity> findByIdTag(Long idTag);
+
+
 }

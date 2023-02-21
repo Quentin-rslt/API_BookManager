@@ -28,6 +28,16 @@ public class BookService {
     }
 
     /**
+     * Get Book by idTag
+     *
+     * @param idTag Long
+     * @return List<BookEntity> of book by id tag
+     */
+    public List<BookEntity> getBookByIdTag(final Long idTag){
+        return  bookRepository.findByIdTag(idTag);
+    }
+
+    /**
      * Get Book by title and author
      *
      * @param title String
@@ -45,36 +55,6 @@ public class BookService {
      */
     public List<BookEntity> getBooks(){
         return bookRepository.findAll();
-    }
-
-    /**
-     * Get all Book by text of search bar
-     *
-     * @param text String
-     * @return List<BookEntity>
-     */
-    public List<BookEntity> getBooksByTextSearch(final String text){
-        return bookRepository.findLikeTextSearch(text);
-    }
-
-    /**
-     * Get all tags by id of a Book
-     *
-     * @param idBook Long
-     * @return List<TagEntity>
-     */
-    public List<TagEntity> getTagsByIdBook(final Long idBook){
-        return bookRepository.findById(idBook).isPresent() ? bookRepository.findById(idBook).get().getTags() : null;
-    }
-
-    /**
-     * Get all readings by id of a Book
-     *
-     * @param idBook Long
-     * @return List<ReadingEntity>
-     */
-    public List<ReadingEntity> getReadingsByIdBook(final Long idBook){
-        return bookRepository.findById(idBook).isPresent() ? bookRepository.findById(idBook).get().getReadings() : null;
     }
 
     /**

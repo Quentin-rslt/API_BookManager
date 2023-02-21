@@ -23,19 +23,19 @@ public class TagController {
     }
 
     /**
+     * @see TagService#getTagByIdBook(Long)
+     */
+    @GetMapping(value = "/api/tag/book/{id}")
+    public List<TagEntity> getTagByIdBook(@PathVariable(value = "idBook") final Long idBook){
+        return tagService.getTagByIdBook(idBook);
+    }
+
+    /**
      * @see TagService#getTags() 
      */
     @GetMapping(value="/api/tag/all")
     public List<TagEntity> getTags(){
         return tagService.getTags();
-    }
-
-    /**
-     * @see TagService#getBooksByIdTag(Long) 
-     */
-    @GetMapping(value = "/api/tag/{idTag}/book/all")
-    public List<BookEntity> getBooksByIdTag(@PathVariable(value = "idTag") final Long idTag){
-        return tagService.getBooksByIdTag(idTag);
     }
 
     /**
