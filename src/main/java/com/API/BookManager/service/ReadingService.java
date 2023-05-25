@@ -49,16 +49,6 @@ public class ReadingService {
     }
 
     /**
-     * Create a new Reading
-     *
-     * @param reading ReadingEntity
-     * @return ReadingEntity
-     */
-    public ReadingEntity addReading(final ReadingEntity reading){
-        return readingRepository.save(reading);
-    }
-
-    /**
      * Update a Reading
      *
      * @param id Long

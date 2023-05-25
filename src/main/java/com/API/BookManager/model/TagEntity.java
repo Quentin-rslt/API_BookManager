@@ -30,12 +30,4 @@ public class TagEntity {
     @JoinTable(name = "tag_book",joinColumns = @JoinColumn(name = "idTag"),inverseJoinColumns = @JoinColumn(name = "idBook"))
     @JsonIgnore
     private List<BookEntity> books = new ArrayList<>();
-
-    public TagEntity() {
-    }
-
-    public TagEntity(String textTag, int colorTag) {
-        this.textTag = textTag;
-        this.colorTag = colorTag;
-    }
 }

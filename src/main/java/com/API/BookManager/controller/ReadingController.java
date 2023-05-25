@@ -46,14 +46,6 @@ public class ReadingController {
     }
 
     /**
-     * @see ReadingService#addReading(ReadingEntity)
-     */
-    @PostMapping(value = "/api/addReading")
-    public ReadingEntity addReading(@RequestBody final ReadingEntity reading){
-        return readingService.addReading(reading);
-    }
-
-    /**
      * @see ReadingService#updateReading(Long, ReadingEntity)
      */
     @PutMapping(value = "/api/updateReading/{readingId}")

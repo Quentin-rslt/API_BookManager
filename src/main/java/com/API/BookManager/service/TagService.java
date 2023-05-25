@@ -1,6 +1,4 @@
 package com.API.BookManager.service;
-
-import com.API.BookManager.model.BookEntity;
 import com.API.BookManager.model.TagEntity;
 import com.API.BookManager.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +20,6 @@ public class TagService {
      */
     public TagEntity getTagById(final Long id){
         return tagRepository.findById(id).isPresent() ? tagRepository.findById(id).get() : null;
-    }
-
-    /**
-     * Get Tag by idBook
-     *
-     * @param idBook Long
-     * @return List<TagEntity> by id book
-     */
-    public List<TagEntity> getTagByIdBook(final Long idBook){
-        return tagRepository.findByIdBook(idBook);
     }
 
     /**

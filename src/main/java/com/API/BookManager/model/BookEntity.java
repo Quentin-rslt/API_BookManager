@@ -43,18 +43,4 @@ public class BookEntity {
     @ManyToMany(fetch = FetchType.LAZY, cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name="tag_book", joinColumns=@JoinColumn(name="idBook"), inverseJoinColumns=@JoinColumn(name="idTag"))
     private List<TagEntity> tags = new ArrayList<>();
-
-    public BookEntity() {
-    }
-
-    public BookEntity(String title, String author, int numberOP, double notePerso, String releaseYear, String summary, List<ReadingEntity> readings, List<TagEntity> tags) {
-        this.title = title;
-        this.author = author;
-        this.numberOP = numberOP;
-        this.notePerso = notePerso;
-        this.releaseYear = releaseYear;
-        this.summary = summary;
-        this.readings = readings;
-        this.tags = tags;
-    }
 }

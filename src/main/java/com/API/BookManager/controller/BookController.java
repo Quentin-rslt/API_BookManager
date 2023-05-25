@@ -1,8 +1,6 @@
 package com.API.BookManager.controller;
 
 import com.API.BookManager.model.BookEntity;
-import com.API.BookManager.model.ReadingEntity;
-import com.API.BookManager.model.TagEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.API.BookManager.service.BookService;
@@ -30,22 +28,6 @@ public class BookController {
     @GetMapping(value = "/api/book/{id}")
     public BookEntity getBookById(@PathVariable(value = "id") final Long id){
         return bookService.getBookById(id);
-    }
-
-    /**
-     * @see BookService#getBookByIdTag(Long)
-     */
-    @GetMapping(value = "/api/book/tag/{idTag}")
-    public List<BookEntity> getBookByIdTag(@PathVariable(value = "idTag") final Long idTag){
-        return bookService.getBookByIdTag(idTag);
-    }
-
-    /**
-     * @see BookService#getBookByTitleAndAuthor(String, String)
-     */
-    @GetMapping(value = "/api/book/{title}/{author}")
-    public BookEntity getBookByTitleAndAuthor(@PathVariable(value = "title") final String title, @PathVariable(value = "author") final String author){
-        return bookService.getBookByTitleAndAuthor(title, author);
     }
 
     /**

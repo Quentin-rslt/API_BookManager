@@ -28,27 +28,6 @@ public class BookService {
     }
 
     /**
-     * Get Book by idTag
-     *
-     * @param idTag Long
-     * @return List<BookEntity> of book by id tag
-     */
-    public List<BookEntity> getBookByIdTag(final Long idTag){
-        return  bookRepository.findByIdTag(idTag);
-    }
-
-    /**
-     * Get Book by title and author
-     *
-     * @param title String
-     * @param author String
-     * @return BookEntity
-     */
-    public BookEntity getBookByTitleAndAuthor(final String title, final String author){
-        return bookRepository.findByTitleAndAuthor(title, author) .isPresent() ? bookRepository.findByTitleAndAuthor(title, author).get() : null;
-    }
-
-    /**
      * Get all Book
      *
      * @return List<BookEntity>
