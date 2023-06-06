@@ -24,7 +24,7 @@ public class TagEntity {
     private String textTag;
 
     @Column(name="colorTag")
-    private int colorTag;
+    private String colorTag;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(name = "tag_book",joinColumns = @JoinColumn(name = "idTag"),inverseJoinColumns = @JoinColumn(name = "idBook"))

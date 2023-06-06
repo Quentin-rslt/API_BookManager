@@ -37,6 +37,9 @@ public class BookEntity {
     @Column(name="summary")
     private String summary;
 
+    @Column(name="isFav")
+    private boolean isFav;
+
     @OneToMany(mappedBy = "book",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReadingEntity> readings = new ArrayList<>();
 

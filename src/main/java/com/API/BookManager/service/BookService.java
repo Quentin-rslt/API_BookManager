@@ -7,6 +7,8 @@ import com.API.BookManager.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.API.BookManager.repository.BookRepository;
+
+import java.awt.print.Book;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,6 +51,22 @@ public class BookService {
      * Delete all Book
      */
     public void deleteBooks(){ bookRepository.deleteAll(); }
+
+    /**
+     * Can fav a book or not
+     *
+     * @param book BookEntity
+     * @param isFav boolean
+     * @return BookEntity
+     */
+    public BookEntity favBook(final BookEntity book, boolean isFav){
+        if(bookRepository.findByTitleAndAuthor(book.getTitle(), book.getAuthor()).isPresent()){
+            return null;
+        }
+        book.setFav(isFav);
+
+        return bookRepository.save(book);
+    }
 
     /**
      * Create a new Book

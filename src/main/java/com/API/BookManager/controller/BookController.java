@@ -45,6 +45,14 @@ public class BookController {
     public void deleteBooks(){ bookService.deleteBooks(); }
 
     /**
+     * @see BookService#favBook(BookEntity, boolean) ()
+     */
+    @PutMapping(value = "/api/favBook/{isFav}")
+    public BookEntity favBook(@PathVariable(value = "isFav") final  boolean isFav, @RequestBody final  BookEntity book){
+        return bookService.favBook(book, isFav);
+    }
+
+    /**
      * @see BookService#addBook(BookEntity)
      */
     @PostMapping(value = "/api/addBook")
