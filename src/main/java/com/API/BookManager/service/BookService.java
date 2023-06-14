@@ -55,14 +55,13 @@ public class BookService {
     /**
      * Can fav a book or not
      *
-     * @param book BookEntity
+     * @param id Long
      * @param isFav boolean
      * @return BookEntity
      */
-    public BookEntity favBook(final BookEntity book, boolean isFav){
-        if(bookRepository.findByTitleAndAuthor(book.getTitle(), book.getAuthor()).isPresent()){
-            return null;
-        }
+    public BookEntity favBook(final Long id, boolean isFav){
+        BookEntity book = this.getBookById(id);
+
         book.setFav(isFav);
 
         return bookRepository.save(book);
