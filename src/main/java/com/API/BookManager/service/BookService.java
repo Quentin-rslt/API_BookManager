@@ -1,5 +1,6 @@
 package com.API.BookManager.service;
 
+import com.API.BookManager.composite.BookSearchCriteriaComposite;
 import com.API.BookManager.model.BookEntity;
 import com.API.BookManager.model.ReadingEntity;
 import com.API.BookManager.model.TagEntity;
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.API.BookManager.repository.BookRepository;
 
-import java.awt.print.Book;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +27,18 @@ public class BookService {
      */
     public BookEntity getBookById(final Long id){
         return bookRepository.findById(id).isPresent() ? bookRepository.findById(id).get() : null;
+    }
+
+    /**
+     * Get books by criteria
+     *
+     * @param composite BookSearchCriteriaComposite
+     * @return List<BookEntity>
+     */
+    public List<BookEntity> getBooksByCriteria(final BookSearchCriteriaComposite composite){
+        return bookRepository.findBooksByCrtieria(composite.getTitle(), composite.getAuthor(), composite.getNumberOPStart(),
+                composite.getNumberOPEnd(), composite.getNotePersoStart(), composite.getNotePersoEnd(),
+                composite.getReleaseYearStart(), composite.getReleaseYearEnd(), composite.getSummary(), composite.isFav());
     }
 
     /**
@@ -146,9 +158,7 @@ public class BookService {
         }
         oldBook.setNumberOP(newBook.getNumberOP());
         oldBook.setNotePerso(newBook.getNotePerso());
-        if(newBook.getReleaseYear()!=null){
-            oldBook.setReleaseYear(newBook.getReleaseYear());
-        }
+        oldBook.setReleaseYear(newBook.getReleaseYear());
         if(newBook.getSummary()!=null){
             oldBook.setSummary(newBook.getSummary());
         }

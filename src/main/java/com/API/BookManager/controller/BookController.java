@@ -1,10 +1,12 @@
 package com.API.BookManager.controller;
 
+import com.API.BookManager.composite.BookSearchCriteriaComposite;
 import com.API.BookManager.model.BookEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.API.BookManager.service.BookService;
 
+import java.awt.print.Book;
 import java.util.List;
 
 @CrossOrigin(origins= {"*"}, maxAge = 4800, allowCredentials = "false" )
@@ -21,6 +23,13 @@ public class BookController {
         return bookService.getBooks();
     }
 
+    /**
+     * @see BookService#getBooksByCriteria(BookSearchCriteriaComposite) 
+     */
+    @GetMapping(value="/api/book/criteria")
+    public List<BookEntity> getBooksByCriteria(@RequestBody final BookSearchCriteriaComposite composite) {
+        return bookService.getBooksByCriteria(composite);
+    }
 
     /**
      * @see BookService#getBookById(Long)

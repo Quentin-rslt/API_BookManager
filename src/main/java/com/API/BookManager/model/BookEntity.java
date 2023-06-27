@@ -32,7 +32,7 @@ public class BookEntity {
     private double notePerso;
 
     @Column(name="releaseYear")
-    private String releaseYear;
+    private int releaseYear;
 
     @Column(name="summary")
     private String summary;
