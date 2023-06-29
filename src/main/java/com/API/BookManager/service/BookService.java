@@ -35,7 +35,7 @@ public class BookService {
      * @param composite BookSearchCriteriaComposite
      * @return List<BookEntity>
      */
-    public List<BookEntity> getBooksByCriteria(final BookSearchCriteriaComposite composite){
+    public List<Integer> getBooksByCriteria(final BookSearchCriteriaComposite composite){
         return bookRepository.findBooksByCrtieria(composite.getTitle(), composite.getAuthor(), composite.getNumberOPStart(),
                 composite.getNumberOPEnd(), composite.getNotePersoStart(), composite.getNotePersoEnd(),
                 composite.getReleaseYearStart(), composite.getReleaseYearEnd(), composite.getSummary(), composite.isFav());

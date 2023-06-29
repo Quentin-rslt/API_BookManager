@@ -28,8 +28,7 @@ public class BookController {
      * @see BookService#getBooksByCriteria(BookSearchCriteriaComposite) 
      */
     @GetMapping(value="/api/book/criteria")
-    @ResponseBody
-    public List<BookEntity> getBooksByCriteria(@RequestParam("c") final String c) throws IOException {
+    public List<Integer> getBooksByCriteria(@RequestParam("c") final String c) throws IOException {
         BookSearchCriteriaComposite composite = new ObjectMapper().readValue(c, BookSearchCriteriaComposite.class);
 
         return bookService.getBooksByCriteria(composite);
