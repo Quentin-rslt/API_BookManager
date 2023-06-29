@@ -2,11 +2,12 @@ package com.API.BookManager.controller;
 
 import com.API.BookManager.composite.BookSearchCriteriaComposite;
 import com.API.BookManager.model.BookEntity;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.API.BookManager.service.BookService;
 
-import java.awt.print.Book;
+import java.io.IOException;
 import java.util.List;
 
 @CrossOrigin(origins= {"*"}, maxAge = 4800, allowCredentials = "false" )
@@ -27,7 +28,10 @@ public class BookController {
      * @see BookService#getBooksByCriteria(BookSearchCriteriaComposite) 
      */
     @GetMapping(value="/api/book/criteria")
-    public List<BookEntity> getBooksByCriteria(@RequestBody final BookSearchCriteriaComposite composite) {
+    @ResponseBody
+    public List<BookEntity> getBooksByCriteria(@RequestParam("c") final String c) throws IOException {
+        BookSearchCriteriaComposite composite = new ObjectMapper().readValue(c, BookSearchCriteriaComposite.class);
+
         return bookService.getBooksByCriteria(composite);
     }
 

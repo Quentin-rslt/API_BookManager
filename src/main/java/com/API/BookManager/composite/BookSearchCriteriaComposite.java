@@ -1,11 +1,7 @@
 package com.API.BookManager.composite;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
 @Data
 public class BookSearchCriteriaComposite {
     private String title;
