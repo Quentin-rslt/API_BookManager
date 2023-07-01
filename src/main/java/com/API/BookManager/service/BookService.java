@@ -6,6 +6,7 @@ import com.API.BookManager.model.ReadingEntity;
 import com.API.BookManager.model.TagEntity;
 import com.API.BookManager.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.API.BookManager.repository.BookRepository;
 
@@ -38,7 +39,7 @@ public class BookService {
     public List<Integer> getBooksByCriteria(final BookSearchCriteriaComposite composite){
         return bookRepository.findBooksByCrtieria(composite.getTitle(), composite.getAuthor(), composite.getNumberOPStart(),
                 composite.getNumberOPEnd(), composite.getNotePersoStart(), composite.getNotePersoEnd(),
-                composite.getReleaseYearStart(), composite.getReleaseYearEnd(), composite.getSummary(), composite.isFav());
+                composite.getReleaseYearStart(), composite.getReleaseYearEnd(), composite.getSummary(), composite.isFav(), Sort.by(Sort.Direction.ASC, "idBook"));
     }
 
     /**
@@ -47,7 +48,7 @@ public class BookService {
      * @return List<BookEntity>
      */
     public List<BookEntity> getBooks(){
-        return bookRepository.findAll();
+        return bookRepository.findAll(Sort.by(Sort.Direction.ASC, "idBook"));
     }
 
     /**

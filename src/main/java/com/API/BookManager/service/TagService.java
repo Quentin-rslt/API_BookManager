@@ -2,6 +2,7 @@ package com.API.BookManager.service;
 import com.API.BookManager.model.TagEntity;
 import com.API.BookManager.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class TagService {
      * @return List<TagEntity>
      */
     public List<TagEntity> getTags(){
-        return tagRepository.findAll();
+        return tagRepository.findAll(Sort.by(Sort.Direction.ASC, "idTag"));
     }
 
     /**

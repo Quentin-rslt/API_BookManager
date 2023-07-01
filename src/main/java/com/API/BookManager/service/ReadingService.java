@@ -3,6 +3,7 @@ package com.API.BookManager.service;
 import com.API.BookManager.model.ReadingEntity;
 import com.API.BookManager.repository.ReadingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class ReadingService {
      * @return List<ReadingEntity>
      */
     public List<ReadingEntity> getReadings(){
-        return readingRepository.findAll();
+        return readingRepository.findAll(Sort.by(Sort.Direction.ASC, "idReading"));
     }
 
     /**

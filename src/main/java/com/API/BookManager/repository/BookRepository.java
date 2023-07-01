@@ -1,6 +1,7 @@
 package com.API.BookManager.repository;
 
 import com.API.BookManager.model.BookEntity;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -21,5 +22,5 @@ public interface BookRepository extends JpaRepository<BookEntity, Long> {
             "and ((?7 is null or ?8 is null) or b.releaseYear between ?7 and ?8)" +
             "and (?9 is null or upper(b.summary) like upper(concat('%', ?9, '%'))) " +
             "and (?10 is null or b.isFav = ?10)")
-    List<Integer> findBooksByCrtieria(String title, String author, int numberOPStart, int numberOPEnd, double notePersoStart, double notePersoEnd, int releaseYearStart, int releaseYearEnd, String summary, boolean isFav);
+    List<Integer> findBooksByCrtieria(String title, String author, int numberOPStart, int numberOPEnd, double notePersoStart, double notePersoEnd, int releaseYearStart, int releaseYearEnd, String summary, boolean isFav, Sort sort);
 }
