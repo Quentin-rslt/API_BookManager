@@ -45,5 +45,6 @@ public class BookEntity {
 
     @ManyToMany(fetch = FetchType.LAZY, cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name="tag_book", joinColumns=@JoinColumn(name="idBook"), inverseJoinColumns=@JoinColumn(name="idTag"))
+    @OrderBy("idTag")
     private List<TagEntity> tags = new ArrayList<>();
 }
